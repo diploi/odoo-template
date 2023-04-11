@@ -64,6 +64,14 @@ spec:
               value: {{ .Values.hosts.odoo }}
             - name: STAGE
               value: {{ .Values.stage }}
+            - name: HOST
+              value: {{ .Values.parameterGroupsMap.POSTGRES_HOST }}
+            - name: USER
+              value: {{ .Values.parameterGroupsMap.POSTGRES_USER }}
+            - name: PORT
+              value: {{ .Values.parameterGroupsMap.POSTGRES_PORT }}
+            - name: PASSWORD
+              value: {{ .Values.parameterGroupsMap.POSTGRES_PASSWORD }}
           volumeMounts:
             - name: config-mount
               mountPath: /etc/config

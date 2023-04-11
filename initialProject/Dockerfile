@@ -1,8 +1,8 @@
 FROM ghcr.io/diploi/odoo-template
 
 # Install application code
-WORKDIR /app
+WORKDIR /mnt/extras
 COPY . .
 
-RUN npm install
-RUN npm run build
+#RUN npm install
+#RUN npm run build

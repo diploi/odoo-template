@@ -20,8 +20,8 @@ RUN mkdir /run/sshd /root/.ssh \
   && sed -i s/root:!/"root:*"/g /etc/shadow \
   # Welcome message
   && echo "Welcome to Diploi!" > /etc/motd \
-  # Go to app folder by default
-  && echo "cd /app;" >> /root/.bashrc
+  # Go to addons folder by default
+  && echo "cd /mnt/extra-addons;" >> /root/.bashrc
 
 # Fix LC_ALL: cannot change locale (en_US.UTF-8) error
 #RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \

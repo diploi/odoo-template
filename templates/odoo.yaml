@@ -5,15 +5,15 @@ kind: StatefulSet
 kind: Deployment
 {{- end }}
 metadata:
-  name: app
+  name: odoo
   labels:
-    app: app
+    app: odoo
 spec:
   selector:
     matchLabels:
-      app: app
+      app: odoo
   {{- if eq .Values.stage "development"}}
-  serviceName: app
+  serviceName: odoo
   {{- else }}
   strategy:
     type: RollingUpdate
@@ -25,14 +25,14 @@ spec:
   template:
     metadata:
       labels:
-        app: app
+        app: odoo
     spec:
       terminationGracePeriodSeconds: 10
       imagePullSecrets:
         - name: diploi-pull-secret
       containers:
-        - name: app
-          image: {{ .Values.images.app }}
+        - name: odoo
+          image: {{ .Values.images.odoo }}
           imagePullPolicy: Always
           #command: ['sh', '-c', 'echo The app is running! && sleep 10000']
           ports:
@@ -47,7 +47,7 @@ spec:
             periodSeconds: 5
           env:
             {{- range .Values.env }}
-            {{- if contains "app" .contexts }}
+            {{- if contains "odoo" .contexts }}
             - name: {{ .identifier }}
               value: {{ .value | quote }}
             {{- end }}
@@ -57,17 +57,21 @@ spec:
               value: {{ .value | quote }}
             {{- end }}
             - name: REPOSITORY_URL
-              value: {{ .Values.repositories.app.url }}
+              value: {{ .Values.repositories.odoo.url }}
             - name: REPOSITORY_BRANCH
-              value: {{ .Values.repositories.app.branch }}
+              value: {{ .Values.repositories.odoo.branch }}
             - name: APP_PUBLIC_URL
-              value: {{ .Values.hosts.app }}
+              value: {{ .Values.hosts.odoo }}
             - name: STAGE
               value: {{ .Values.stage }}
           volumeMounts:
-            {{- if hasKey .Values.storage "app" }}
-            - name: app-mount
-              mountPath: /app
+            - name: config-mount
+              mountPath: /etc/config
+            - name: data-mount
+              mountPath: /var/lib/odoo
+            {{- if hasKey .Values.storage "development" }}
+            - name: addons-mount
+              mountPath: /mnt/extra-addons
             - name: bash-history
               mountPath: /root/.bash_history
             - name: vscode-server
@@ -81,21 +85,27 @@ spec:
             - name: diploi-git
               mountPath: /etc/diploi-git
       volumes:
-        {{- if hasKey .Values.storage "app" }}
-        - name: app-mount
+        - name: config-mount
           hostPath:
-            path: {{ .Values.storage.app.hostPath }}/app
+            path: {{ .Values.storage.data.hostPath }}/config
+        - name: data-mount
+          hostPath:
+            path: {{ .Values.storage.data.hostPath }}/data
+        {{- if hasKey .Values.storage "development" }}
+        - name: addons-mount
+          hostPath:
+            path: {{ .Values.storage.development.hostPath }}/addons
         - name: bash-history
           hostPath:
-            path: {{ .Values.storage.app.hostPath }}/root-persist/.bash_history
+            path: {{ .Values.storage.development.hostPath }}/root-persist/.bash_history
             type: FileOrCreate
         - name: vscode-server
           hostPath:
-            path: {{ .Values.storage.app.hostPath }}/root-persist/.vscode-server
+            path: {{ .Values.storage.development.hostPath }}/root-persist/.vscode-server
             type: DirectoryOrCreate
         - name: git-config
           hostPath:
-            path: {{ .Values.storage.app.hostPath }}/root-persist/.gitconfig
+            path: {{ .Values.storage.development.hostPath }}/root-persist/.gitconfig
             type: FileOrCreate
         {{- end }}
         - name: ssh-keys

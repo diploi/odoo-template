@@ -54,7 +54,7 @@ update-ca-certificates
 env >> /etc/environment
 
 # Now that everything is initialized, start all services
-supervisorctl start www
+supervisorctl start odoo
 
 echo "Runonce done";
 

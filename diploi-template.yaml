@@ -1,7 +1,7 @@
 diploiTemplateVersion: V1.0
-name: diploi-nextjs-todo
-description: A starter template for Next.js
-defaultName: Next.js ToDo
+name: diploi-odoo
+description: Odoo ERP template
+defaultName: Odoo
 
 stages:
   - name: Development
@@ -12,8 +12,8 @@ stages:
     identifier: production
 
 contexts:
-  - name: app
-    identifier: app
+  - name: odoo
+    identifier: odoo
   - name: postgres
     identifier: postgres
 
@@ -36,7 +36,7 @@ parameterGroups:
         identifier: POSTGRES_USER
         defaultValue: postgres
         type: string
-        contexts: label=postgres,label=app
+        contexts: label=postgres,label=odoo
       - name: Password
         identifier: POSTGRES_PASSWORD
         defaultValue: postgres
@@ -47,49 +47,49 @@ parameterGroups:
         type: string
 
 environmentVariables:
-  - identifier: NEXT_PUBLIC_TEST
+  - identifier: TEST
     defaultValue: This text comes from an environment variable!
     type: string
-    contexts: label=app
+    contexts: label=odoo
 
 repositories:
-  - name: app
-    identifier: app
+  - name: odoo
+    identifier: odoo
 
 hosts:
-  - name: App
-    identifier: app
+  - name: Odoo
+    identifier: odoo
     urlFormat: '[label].[default-domain]'
 
 ssh:
   - usernameFormat: '[label]'
-    contexts: label=app
+    contexts: label=odoo
     stages:
       - development
   - usernameFormat: '[label]-[index]'
-    contexts: label=app
+    contexts: label=odoo
     stages:
       - production
   - usernameFormat: '[label]-postgres'
     contexts: label=postgres
 
 logs:
-  - identifier: www-log
-    name: Next.js Log
-    labelSelector: app=app
-    command: tail -n 2000 -F /var/log/www.log
+  - identifier: odoo-log
+    name: Odoo Log
+    labelSelector: app=odoo
+    command: tail -n 2000 -F /var/log/odoo.log
 
 actions:
-  - identifier: nextjs-restart
-    name: Restart Next.js
-    labelSelector: app=app
-    command: supervisord restart www
+  - identifier: odoo-restart
+    name: Restart Odoo
+    labelSelector: app=odoo
+    command: supervisord restart odoo
 
 images:
-  - identifier: app
-    repository: app
+  - identifier: odoo
+    repository: odoo
     dockerfile: Dockerfile
-    image: ghcr.io/nemesysltd/diploi-nextjs-psql-template
+    image: ghcr.io/diploi/odoo-template
     stages:
       - development
       - production
@@ -98,7 +98,13 @@ images:
       - development
 
 storage:
-  - identifier: app
+  - identifier: data
+    stages:
+      - production
+      - staging
+      - development
+    sizeMb: 8000
+  - identifier: development
     stages:
       - development
     sizeMb: 8000
@@ -110,4 +116,4 @@ storage:
     sizeMb: 10000
 
 status:
-  url: http://app:3000/status
+  url: http://odoo:3000/status

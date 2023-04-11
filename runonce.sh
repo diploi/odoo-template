@@ -13,7 +13,6 @@ cd /app;
 if [ ! "$(ls -A /app)" ]; then
 
   echo "Empty /app, assuming development instance setup was intended"
-  #tar zxf /var/lib/diploi-app.tar.gz  -C /
   mkdir -p /root-persist/.vscode-server;
   touch /root-persist/.bash_history;
   touch /root-persist/.gitconfig;

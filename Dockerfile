@@ -1,4 +1,4 @@
-FROM node:16.13-slim
+FROM odoo:16
 
 # This dockerfile is run by diploi image builder, it will have 
 # this template repository as it's base and the actual project
@@ -8,7 +8,7 @@ FROM node:16.13-slim
 RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 python-minimal ca-certificates tar
 
 # Install PostgreSQL client
-RUN apt-get install -y postgresql-client
+#RUN apt-get install -y postgresql-client
 
 RUN mkdir /run/sshd /root/.ssh \
   && chmod 0700 /root/.ssh \
@@ -21,10 +21,10 @@ RUN mkdir /run/sshd /root/.ssh \
   && echo "cd /app;" >> /root/.bashrc
 
 # Fix LC_ALL: cannot change locale (en_US.UTF-8) error
-RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
-  echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-  echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
-  locale-gen en_US.UTF-8
+#RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
+#  echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+#  echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
+#  locale-gen en_US.UTF-8
   
 # Gitconfig secrets and credential helper
 RUN ln -s /etc/diploi-git/gitconfig /etc/gitconfig

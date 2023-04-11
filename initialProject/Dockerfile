@@ -1,8 +1,7 @@
 FROM ghcr.io/diploi/odoo-template:main
 
 # Install application code
-WORKDIR /mnt/extras
+WORKDIR /mnt/extra-addons
 COPY . .
 
-#RUN npm install
-#RUN npm run build
+# Do we need any builds or tests ?

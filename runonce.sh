@@ -10,9 +10,9 @@ cd /app;
 
 # Seems that this is first run in devel instance
 # Intialize persistant storage
-if [ ! "$(ls -A /app)" ]; then
+if [ ! "$(ls -A /mnt/extra-addons)" ]; then
 
-  echo "Empty /app, assuming development instance setup was intended"
+  echo "Empty /mnt/extra-addons, assuming development instance setup was intended"
   mkdir -p /root-persist/.vscode-server;
   touch /root-persist/.bash_history;
   touch /root-persist/.gitconfig;
@@ -26,7 +26,7 @@ if [ ! "$(ls -A /app)" ]; then
   
   # Configure the SQLTools VSCode extension
   # TODO: How to update these if env changes?
-  cat > /app/.vscode/settings.json << EOL
+  cat > /mnt/extra-addons/.vscode/settings.json << EOL
 {
   "sqltools.connections": [
     {
@@ -43,7 +43,7 @@ if [ ! "$(ls -A /app)" ]; then
 }
 EOL
 
-  npm install;
+  #npm install;
 
 fi
 

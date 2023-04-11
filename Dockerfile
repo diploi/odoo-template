@@ -4,6 +4,8 @@ FROM odoo:16
 # this template repository as it's base and the actual project
 # repository will be mounted in the repository folder.
 
+USER root
+
 RUN apt-get update
 
 RUN apt-get install -y bash
@@ -33,6 +35,8 @@ RUN mkdir /run/sshd /root/.ssh \
 # Gitconfig secrets and credential helper
 RUN ln -s /etc/diploi-git/gitconfig /etc/gitconfig
 COPY diploi-credential-helper /usr/local/bin
+
+USER odoo
 
 # Init and run supervisor
 COPY runonce.sh /root/runonce.sh

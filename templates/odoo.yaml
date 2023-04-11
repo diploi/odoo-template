@@ -68,8 +68,9 @@ spec:
               value: {{ .Values.parameterGroupsMap.POSTGRES_HOST }}
             - name: USER
               value: {{ .Values.parameterGroupsMap.POSTGRES_USER }}
-            - name: PORT
-              value: {{ toString .Values.parameterGroupsMap.POSTGRES_PORT }}
+            # There's some issue with this...
+            #- name: PORT
+            #  value: {{ toString .Values.parameterGroupsMap.POSTGRES_PORT }}
             - name: PASSWORD
               value: {{ .Values.parameterGroupsMap.POSTGRES_PASSWORD }}
           volumeMounts:

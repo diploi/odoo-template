@@ -1,4 +1,4 @@
-FROM ghcr.io/diploi/odoo-template
+FROM ghcr.io/diploi/odoo-template:main
 
 # Install application code
 WORKDIR /mnt/extras

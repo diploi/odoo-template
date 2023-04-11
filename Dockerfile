@@ -4,6 +4,10 @@ FROM odoo:16
 # this template repository as it's base and the actual project
 # repository will be mounted in the repository folder.
 
+RUN apt-get update
+
+RUN apt-get install -y bash
+
 # Update basic packages
 RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 python-minimal ca-certificates tar
 

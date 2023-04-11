@@ -6,7 +6,7 @@ echo "Runonce started";
 # Insert accepted ssh key(s)
 cat /etc/ssh/internal_ssh_host_rsa.pub >> /root/.ssh/authorized_keys;
 
-cd /app;
+cd /mnt/extra-addons;
 
 # Seems that this is first run in devel instance
 # Intialize persistant storage

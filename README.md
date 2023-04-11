@@ -1,14 +1,13 @@
-# Diploi Next.js ToDo template
+# Odoo template
 
-A simple starter ToDo app template implemented with Next.js & React.
-Includes an optional PostgreSQL database.
+A template for running Odoo on Dipoi
 
-Features full TypeScript support, out-of-the-box DB connection, HMR support, and much more!
+Features full PostgreSQL etc. etc.
 
 - 💻 [Next.js](https://nextjs.org)
 - 💿 [PostgreSQL](https://www.postgresql.org)
 
-## Next.js
+## Odoo
 
 Available at `/`.
 

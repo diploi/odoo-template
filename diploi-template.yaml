@@ -43,7 +43,7 @@ parameterGroups:
         type: secret
       - name: Schema
         identifier: POSTGRES_DB
-        defaultValue: odoo
+        defaultValue: odoo2
         type: string
 
 environmentVariables:

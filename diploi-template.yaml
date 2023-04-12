@@ -33,13 +33,13 @@ parameterGroups:
         defaultValue: 5432
         type: integer
       - name: User
-        identifier: odoo
-        defaultValue: postgres
+        identifier: POSTGRES_USER
+        defaultValue: odoo
         type: string
         contexts: label=postgres,label=odoo
       - name: Password
         identifier: POSTGRES_PASSWORD
-        defaultValue: odoo
+        defaultValue: postgresodoo
         type: secret
       - name: Schema
         identifier: POSTGRES_DB

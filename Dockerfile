@@ -35,7 +35,12 @@ COPY diploi-credential-helper /usr/local/bin
 
 # USER odoo ?
 
+# Fake pod ready
+RUN touch /tmp/pod-ready
+
+
 # Init and run supervisor
+COPY odoo-start.sh /odoo-start.sh
 COPY runonce.sh /root/runonce.sh
 COPY supervisord.conf /etc/supervisord.conf
 CMD /usr/bin/supervisord -c /etc/supervisord.conf

@@ -36,7 +36,7 @@ spec:
           imagePullPolicy: Always
           #command: ['sh', '-c', 'echo The app is running! && sleep 10000']
           ports:
-            - containerPort: 80
+            - containerPort: 8069
             - containerPort: 3000
           readinessProbe:
             exec:
@@ -64,15 +64,6 @@ spec:
               value: {{ .Values.hosts.odoo }}
             - name: STAGE
               value: {{ .Values.stage }}
-            - name: HOST
-              value: {{ .Values.parameterGroupsMap.POSTGRES_HOST }}
-            - name: USER
-              value: {{ .Values.parameterGroupsMap.POSTGRES_USER }}
-            # There's some issue with this...
-            #- name: PORT
-            #  value: {{ toString .Values.parameterGroupsMap.POSTGRES_PORT }}
-            - name: PASSWORD
-              value: {{ .Values.parameterGroupsMap.POSTGRES_PASSWORD }}
           volumeMounts:
             - name: config-mount
               mountPath: /etc/config

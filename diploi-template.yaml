@@ -48,7 +48,7 @@ parameterGroups:
 
 environmentVariables:
   - identifier: TEST
-    defaultValue: This text comes from an environment variable!
+    defaultValue: This text comes from an environment variable
     type: string
     contexts: label=odoo
 

@@ -12,7 +12,7 @@ RUN usermod -d /home/odoo odoo
 RUN mkhomedir_helper odoo
 RUN usermod --shell /bin/bash odoo
 RUN mkdir /home/odoo/.ssh 
-RUN chmod 700 ~/.ssh
+RUN chmod 700 /home/odoo/.ssh
 RUN chown odoo:odoo /home/odoo/.ssh
 
 

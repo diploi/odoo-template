@@ -33,11 +33,12 @@ RUN mkdir /run/sshd /root/.ssh \
 RUN ln -s /etc/diploi-git/gitconfig /etc/gitconfig
 COPY diploi-credential-helper /usr/local/bin
 
-# USER odoo ?
+# Experimental add odoo user
+RUN apt-get update && apt-get -y install sudo
+RUN adduser odoo sudo
 
 # Fake pod ready
 RUN touch /tmp/pod-ready
-
 
 # Init and run supervisor
 COPY odoo-start.sh /odoo-start.sh

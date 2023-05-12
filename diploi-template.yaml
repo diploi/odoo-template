@@ -64,10 +64,24 @@ hosts:
 ssh:
   - usernameFormat: '[label]'
     contexts: label=odoo
+    containerUser: odoo
+    editorPath: /mnt/extra-addons
+    stages:
+      - development
+  - usernameFormat: '[label]-root'
+    contexts: label=odoo
+    containerUser: root
+    editorPath: /root
     stages:
       - development
   - usernameFormat: '[label]-[index]'
     contexts: label=odoo
+    containerUser: odoo
+    stages:
+      - production
+  - usernameFormat: '[label]-[index]-root'
+    contexts: label=odoo
+    containerUser: root
     stages:
       - production
   - usernameFormat: '[label]-postgres'

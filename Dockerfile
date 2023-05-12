@@ -7,6 +7,15 @@ FROM odoo:16
 # NOTE! Odoo should run as odoo user
 USER root
 
+# Fix odoo user to have own homedir 
+RUN usermod -d /home/odoo odoo
+RUN mkhomedir_helper odoo
+RUN usermod --shell /bin/bash odoo
+RUN mkdir /home/odoo/.ssh 
+RUN chmod 700 ~/.ssh
+RUN chown odoo:odoo /home/odoo/.ssh
+
+
 # Update basic packages
 RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 ca-certificates tar
 

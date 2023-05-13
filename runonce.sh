@@ -16,12 +16,12 @@ if [ ! -d "/var/lib/odoo/diploi-etc-odoo" ]; then
     #chown odoo:odoo /var/lib/odoo/etc-odoo;
     #rm -rf /etc/odoo; # TODO: Should we copy file, is it created already?
     #ln -s /var/lib/odoo/diploi-etc-config /etc/config;
-    mkdir /var/lib/odoo/sessions;
-    mkdir /var/lib/odoo/addons;
-    mkdir /var/lib/odoo/filestore; # ??
-    mkdir /var/lib/odoo/config; # ??
-    mkdir /var/lib/odoo/logs; # ??
-    chown odoo:odoo: /var/lib/odoo/*;
+    #mkdir /var/lib/odoo/sessions;
+    #mkdir /var/lib/odoo/addons;
+    #mkdir /var/lib/odoo/filestore; # ??
+    #mkdir /var/lib/odoo/config; # ??
+    #mkdir /var/lib/odoo/logs; # ??
+    #chown odoo:odoo: /var/lib/odoo/*;
 fi
 
 # Seems that this is first run in devel instance

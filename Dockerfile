@@ -14,6 +14,7 @@ RUN usermod --shell /bin/bash odoo
 RUN mkdir /home/odoo/.ssh 
 RUN chmod 700 /home/odoo/.ssh
 RUN chown odoo:odoo /home/odoo/.ssh
+COPY update_odoo_home.sh /etc/profile.d/update_odoo_home.sh
 
 
 # Update basic packages

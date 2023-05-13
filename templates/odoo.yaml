@@ -95,7 +95,7 @@ spec:
       volumes:
         - name: odoo-mount
           hostPath:
-            path: {{ .Values.storage.data.hostPath }}
+            path: {{ .Values.storage.odoo.hostPath }}
         {{- if hasKey .Values.storage "development" }}
         - name: addons-mount
           hostPath:

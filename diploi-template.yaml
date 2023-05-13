@@ -112,7 +112,8 @@ images:
       - development
 
 storage:
-  - identifier: data
+  # /var/lib/odoo
+  - identifier: odoo
     stages:
       - production
       - staging

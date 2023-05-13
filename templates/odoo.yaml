@@ -73,10 +73,12 @@ spec:
             - name: PASSWORD
               value: {{ .Values.parameterGroupsMap.POSTGRES_PASSWORD | quote }}
           volumeMounts:
-            - name: config-mount
-              mountPath: /etc/config
+#            - name: config-mount
+#              mountPath: /etc/config
+#            - name: data-mount
+#              mountPath: /var/lib/odoo
             - name: data-mount
-              mountPath: /var/lib/odoo
+              mountPath: /data
             {{- if hasKey .Values.storage "development" }}
             - name: addons-mount
               mountPath: /mnt/extra-addons
@@ -93,12 +95,12 @@ spec:
             - name: diploi-git
               mountPath: /etc/diploi-git
       volumes:
-        - name: config-mount
-          hostPath:
-            path: {{ .Values.storage.data.hostPath }}/config
+        #- name: config-mount
+        #  hostPath:
+        #    path: {{ .Values.storage.data.hostPath }}/config
         - name: data-mount
           hostPath:
-            path: {{ .Values.storage.data.hostPath }}/data
+            path: {{ .Values.storage.data.hostPath }}
         {{- if hasKey .Values.storage "development" }}
         - name: addons-mount
           hostPath:

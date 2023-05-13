@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# OBSOLETE, NOT USED
-# OBSOLETE, NOT USED
-# OBSOLETE, NOT USED
-
 odoo \
-  --http-port=80 \
   --init=base \
   --database=$POSTGRES_DB \
   --db_host=$POSTGRES_HOST \

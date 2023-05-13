@@ -15,6 +15,8 @@ RUN mkdir /home/odoo/.ssh
 RUN chmod 700 /home/odoo/.ssh
 RUN chown odoo:odoo /home/odoo/.ssh
 COPY update_odoo_home.sh /etc/profile.d/update_odoo_home.sh
+RUN mkdir /var/lib/odoo/sessions
+RUN chown odoo /var/lib/odoo/sessions
 
 
 # Update basic packages
@@ -44,8 +46,8 @@ RUN ln -s /etc/diploi-git/gitconfig /etc/gitconfig
 COPY diploi-credential-helper /usr/local/bin
 
 # Experimental add odoo user
-RUN apt-get update && apt-get -y install sudo
-RUN adduser odoo sudo
+#RUN apt-get update && apt-get -y install sudo
+#RUN adduser odoo sudo
 
 # Fake pod ready
 RUN touch /tmp/pod-ready

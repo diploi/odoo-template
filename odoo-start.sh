@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# OBSOLETE, NOT USED
+# OBSOLETE, NOT USED
+# OBSOLETE, NOT USED
+
 odoo \
   --http-port=80 \
   --init=base \

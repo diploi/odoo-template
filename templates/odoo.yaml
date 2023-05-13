@@ -75,8 +75,6 @@ spec:
           volumeMounts:
             - name: odoo-mount
               mountPath: /var/lib/odoo
-            - name: data-mount
-              mountPath: /data
             {{- if hasKey .Values.storage "development" }}
             - name: addons-mount
               mountPath: /mnt/extra-addons

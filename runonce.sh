@@ -9,6 +9,18 @@ cat /etc/ssh/internal_ssh_host_rsa.pub >> /home/odoo/.ssh/authorized_keys;
 
 cd /mnt/extra-addons;
 
+# Initialize symlinks so that odoo persistent data will outlive the pod
+if [ ! -d "/data/var-lib-odoo" ]; then
+    echo "Initializing persistent data folder symlinks";
+    mkdir /data/var-lib-odoo;
+    mkdir /data/etc-config;
+    chown odoo:odoo /data/var-lib-odoo /data/etc-config
+    rm -rf /var/lib/odoo;
+    rm -rf /etc/config;
+    ln -s /data/var-lib-odoo /var/lib/odoo;
+    ln -s /data/etc-config/ /etc/config;
+fi
+
 # Seems that this is first run in devel instance
 # Intialize persistant storage
 if [ ! "$(ls -A /mnt/extra-addons)" ]; then

@@ -10,12 +10,18 @@ cat /etc/ssh/internal_ssh_host_rsa.pub >> /home/odoo/.ssh/authorized_keys;
 cd /mnt/extra-addons;
 
 # Initialize symlink to /etc/config so config will outlive pod
-if [ ! -d "/data/var-lib-odoo" ]; then
-    echo "Initializing persistent data folder symlinks";
-    mkdir /var/lib/odoo/diploi-etc-config;
-    chown odoo:odoo /var/lib/odoo/diploi-etc-config;
-    rm -rf /etc/config;
-    ln -s /var/lib/odoo/diploi-etc-config /etc/config;
+if [ ! -d "/var/lib/odoo/diploi-etc-odoo" ]; then
+    echo "Initializing persistent data folders";
+    #mkdir /var/lib/odoo/diploi-etc-odoo;
+    #chown odoo:odoo /var/lib/odoo/etc-odoo;
+    #rm -rf /etc/odoo; # TODO: Should we copy file, is it created already?
+    #ln -s /var/lib/odoo/diploi-etc-config /etc/config;
+    mkdir /var/lib/odoo/sessions;
+    mkdir /var/lib/odoo/addons;
+    mkdir /var/lib/odoo/filestore; # ??
+    mkdir /var/lib/odoo/config; # ??
+    mkdir /var/lib/odoo/logs; # ??
+    chown odoo:odoo: /var/lib/odoo/*;
 fi
 
 # Seems that this is first run in devel instance

@@ -65,13 +65,13 @@ spec:
             - name: STAGE
               value: {{ .Values.stage }}
             - name: HOST
-              value: {{ .Values.parameterGroups.POSTGRES_HOST.value }}
+              value: {{ .Values.parameterGroupsMap.POSTGRES_HOST }}
             - name: PORT
-              value: {{ .Values.parameterGroups.POSTGRES_PORT.value }}
+              value: {{ .Values.parameterGroupsMap.POSTGRES_PORT }}
             - name: USER
-              value: {{ .Values.parameterGroups.POSTGRES_USER.value }}
+              value: {{ .Values.parameterGroupsMap.POSTGRES_USER }}
             - name: PASSWORD
-              value: {{ .Values.parameterGroups.POSTGRES_PASSWORD.value }}
+              value: {{ .Values.parameterGroupsMap.POSTGRES_PASSWORD }}
           volumeMounts:
             - name: config-mount
               mountPath: /etc/config

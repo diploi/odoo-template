@@ -73,7 +73,7 @@ spec:
             - name: PASSWORD
               value: {{ .Values.parameterGroupsMap.POSTGRES_PASSWORD | quote }}
           volumeMounts:
-            - name: var-lib-odoo-mount
+            - name: odoo-mount
               mountPath: /var/lib/odoo
             {{- if hasKey .Values.storage "development" }}
             - name: mnt-extra-addons-mount
@@ -91,9 +91,9 @@ spec:
             - name: diploi-git
               mountPath: /etc/diploi-git
       volumes:
-        - name: var-lib-odoo-mount
+        - name: odoo-mount
           hostPath:
-            path: {{ .Values.storage.var-lib-odoo.hostPath }}
+            path: {{ .Values.storage.odoo.hostPath }}
         {{- if hasKey .Values.storage "development" }}
         - name: mnt-extra-addons-mount
           hostPath:

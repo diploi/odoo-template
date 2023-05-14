@@ -21,7 +21,7 @@ if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
 fi
 
 # Run tasks that should be done as odoo user
-su -s /root/runonce-odoo.sh -g odoo odoo
+su -s /home/odoo/runonce-odoo.sh -g odoo odoo
 
 # Update internal ca certificate
 update-ca-certificates

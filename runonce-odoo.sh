@@ -10,9 +10,9 @@ cd /mnt/extra-addons;
 if [ ! "$(ls -A /mnt/extra-addons)" ]; then
 
   echo "Empty /mnt/extra-addons, assuming development instance setup was intended"
-  mkdir -p /odoo-persist/.vscode-server;
-  touch /odoo-persist/.bash_history;
-  touch /odoo-persist/.gitconfig;
+  #mkdir -p /odoo-persist/.vscode-server;
+  #touch /odoo-persist/.bash_history;
+  #touch /odoo-persist/.gitconfig;
 
   git init;
   git config credential.helper '!diploi-credential-helper';

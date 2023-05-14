@@ -8,8 +8,6 @@ cat /etc/ssh/internal_ssh_host_rsa.pub >> /root/.ssh/authorized_keys;
 cat /etc/ssh/internal_ssh_host_rsa.pub >> /home/odoo/.ssh/authorized_keys;
 chown odoo:odoo /home/odoo/.ssh/authorized_keys;
 
-cd /mnt/extra-addons;
-
 # Initialize symlink to /etc/odoo so config will outlive pod
 if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   echo "Initializing persistent data folders";
@@ -18,7 +16,12 @@ if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   sed 's/^\s*; admin_passwd = admin\s*$/admin_passwd = '$INITIAL_ADMIN_PASSWORD'/' "/etc/odoo/odoo.conf" > /etc/odoo/odoo-modified.conf
   rm /etc/odoo.conf;
   mv /etc/odoo/odoo-modified.conf /etc/odoo/odoo.conf;
+  chown -R odoo:odoo /etc/odoo
 fi
+
+touch /var/log/git-credential-helper.log
+chown odoo:odoo /var/log/git-credential-helper.log
+
 
 # Run tasks that should be done as odoo user
 su -s /home/odoo/runonce-odoo.sh -g odoo odoo

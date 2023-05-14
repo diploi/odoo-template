@@ -90,10 +90,12 @@ spec:
         - name: data-mount
           hostPath:
             path: {{ .Values.storage.odoodata.hostPath }}
-        {{- if hasKey .Values.storage "development" }}
+        {{- if hasKey .Values.storage "odoohome" }}
         - name: home-mount
           hostPath:
             path: {{ .Values.storage.odoohome.hostPath }}
+        {{- end }}
+        {{- if hasKey .Values.storage "odooaddons" }}
         - name: addons-mount
           hostPath:
             path: {{ .Values.storage.odooaddons.hostPath }}

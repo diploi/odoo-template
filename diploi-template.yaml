@@ -122,13 +122,17 @@ images:
       - development
 
 storage:
-  - identifier: odoo
+  - identifier: odoodata
     stages:
       - production
       - staging
       - development
     sizeMb: 8000
-  - identifier: development
+  - identifier: odoohome
+    stages:
+      - development
+    sizeMb: 8000
+  - identifier: odooaddons
     stages:
       - development
     sizeMb: 8000

@@ -9,10 +9,7 @@ cd /mnt/extra-addons;
 # Intialize persistant storage
 if [ ! "$(ls -A /mnt/extra-addons)" ]; then
 
-  echo "Empty /mnt/extra-addons, assuming development instance setup was intended"
-  #mkdir -p /odoo-persist/.vscode-server;
-  #touch /odoo-persist/.bash_history;
-  #touch /odoo-persist/.gitconfig;
+  echo "Initializing git repository"
 
   git init;
   git config credential.helper '!diploi-credential-helper';
@@ -39,6 +36,8 @@ if [ ! "$(ls -A /mnt/extra-addons)" ]; then
   ]
 }
 EOL
+
+fi
 
 echo "Runonce odoo done";
 

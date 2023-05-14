@@ -73,17 +73,13 @@ spec:
             - name: PASSWORD
               value: {{ .Values.parameterGroupsMap.POSTGRES_PASSWORD | quote }}
           volumeMounts:
-            - name: odoo-mount
+            - name: data-mount
               mountPath: /var/lib/odoo
             {{- if hasKey .Values.storage "development" }}
-            - name: mnt-extra-addons-mount
+            - name: home-mount
+              mountPath: /home/odoo
+            - name: addons-mount
               mountPath: /mnt/extra-addons
-            - name: bash-history
-              mountPath: /home/odoo/.bash_history
-            - name: vscode-server
-              mountPath: /home/odoo/.vscode-server
-            - name: git-config
-              mountPath: /home/odoo/.gitconfig
             {{- end }}
             - name: ssh-keys
               mountPath: /etc/ssh/internal_ssh_host_rsa.pub
@@ -91,25 +87,16 @@ spec:
             - name: diploi-git
               mountPath: /etc/diploi-git
       volumes:
-        - name: odoo-mount
+        - name: data-mount
           hostPath:
-            path: {{ .Values.storage.odoo.hostPath }}
+            path: {{ .Values.storage.odoodata.hostPath }}
         {{- if hasKey .Values.storage "development" }}
-        - name: mnt-extra-addons-mount
+        - name: home-mount
           hostPath:
-            path: {{ .Values.storage.development.hostPath }}/extra-addons
-        - name: bash-history
+            path: {{ .Values.storage.odoohome.hostPath }}
+        - name: addons-mount
           hostPath:
-            path: {{ .Values.storage.development.hostPath }}/odoo-persist/.bash_history
-            type: FileOrCreate
-        - name: vscode-server
-          hostPath:
-            path: {{ .Values.storage.development.hostPath }}/odoo-persist/.vscode-server
-            type: DirectoryOrCreate
-        - name: git-config
-          hostPath:
-            path: {{ .Values.storage.development.hostPath }}/odoo-persist/.gitconfig
-            type: FileOrCreate
+            path: {{ .Values.storage.odooaddons.hostPath }}
         {{- end }}
         - name: ssh-keys
           secret:

@@ -6,62 +6,22 @@ echo "Runonce started";
 # Insert accepted ssh key(s)
 cat /etc/ssh/internal_ssh_host_rsa.pub >> /root/.ssh/authorized_keys;
 cat /etc/ssh/internal_ssh_host_rsa.pub >> /home/odoo/.ssh/authorized_keys;
+chown odoo:odoo /home/odoo/.ssh/authorized_keys;
 
 cd /mnt/extra-addons;
 
-# Initialize symlink to /etc/config so config will outlive pod
-if [ ! -d "/var/lib/odoo/diploi-etc-odoo" ]; then
-    echo "Initializing persistent data folders";
-    #mkdir /var/lib/odoo/diploi-etc-odoo;
-    #chown odoo:odoo /var/lib/odoo/etc-odoo;
-    #rm -rf /etc/odoo; # TODO: Should we copy file, is it created already?
-    #ln -s /var/lib/odoo/diploi-etc-config /etc/config;
-    #mkdir /var/lib/odoo/sessions;
-    #mkdir /var/lib/odoo/addons;
-    #mkdir /var/lib/odoo/filestore; # ??
-    #mkdir /var/lib/odoo/config; # ??
-    #mkdir /var/lib/odoo/logs; # ??
-    #chown odoo:odoo: /var/lib/odoo/*;
+# Initialize symlink to /etc/odoo so config will outlive pod
+if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
+  echo "Initializing persistent data folders";
+  mv /etc/odoo /var/lib/odoo/etc-odoo;
+  ln -s /var/lib/odoo/etc-odoo /etc/odoo;
+  sed 's/^\s*; admin_passwd = admin\s*$/admin_passwd = '$INITIAL_ADMIN_PASSWORD'/' "/etc/odoo/odoo.conf" > /etc/odoo/odoo-modified.conf
+  rm /etc/odoo.conf;
+  mv /etc/odoo/odoo-modified.conf /etc/odoo/odoo.conf;
 fi
 
-# Seems that this is first run in devel instance
-# Intialize persistant storage
-if [ ! "$(ls -A /mnt/extra-addons)" ]; then
-
-  echo "Empty /mnt/extra-addons, assuming development instance setup was intended"
-  mkdir -p /root-persist/.vscode-server;
-  touch /root-persist/.bash_history;
-  touch /root-persist/.gitconfig;
-
-  git init;
-  git config credential.helper '!diploi-credential-helper';
-  git remote add --fetch origin $REPOSITORY_URL;
-  git checkout -f $REPOSITORY_BRANCH;
-  git remote set-url origin "$REPOSITORY_URL";
-  git config --unset credential.helper;
-  
-  # Configure the SQLTools VSCode extension
-  # TODO: How to update these if env changes?
-  cat > /mnt/extra-addons/.vscode/settings.json << EOL
-{
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "server": "$POSTGRES_HOST",
-      "port": $POSTGRES_PORT,
-      "driver": "PostgreSQL",
-      "name": "PostgreSQL",
-      "database": "$POSTGRES_DB",
-      "username": "$POSTGRES_USER",
-      "password": "$POSTGRES_PASSWORD",
-    }
-  ]
-}
-EOL
-
-  #npm install;
-
-fi
+# Run tasks that should be done as odoo user
+su -s /root/runonce-odoo.sh -g odoo odoo
 
 # Update internal ca certificate
 update-ca-certificates
@@ -75,3 +35,4 @@ supervisorctl start odoo
 echo "Runonce done";
 
 exit 0;
+

@@ -18,6 +18,16 @@ contexts:
     identifier: postgres
 
 parameterGroups:
+  - name: Odoo
+    identifier: odoo
+    toggleable: false
+    description: General settings
+    defaultValue: TRUE
+    parameters:
+    - name: Initial admin password
+      identifier: INITIAL_ADMIN_PASSWORD
+      defaultValue: admindiploi99!
+      type: string
   - name: PostgreSQL Database
     identifier: postgres
     toggleable: true
@@ -112,8 +122,7 @@ images:
       - development
 
 storage:
-  # /var/lib/odoo
-  - identifier: odoo
+  - identifier: var-lib-odoo
     stages:
       - production
       - staging

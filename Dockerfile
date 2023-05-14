@@ -15,6 +15,7 @@ RUN mkdir /home/odoo/.ssh
 RUN chmod 700 /home/odoo/.ssh
 RUN chown odoo:odoo /home/odoo/.ssh
 COPY update_odoo_home.sh /etc/profile.d/update_odoo_home.sh
+# TODO: Is this really needed, now that permissions are ok?
 RUN mkdir /var/lib/odoo/sessions
 RUN chown odoo /var/lib/odoo/sessions
 
@@ -55,5 +56,6 @@ RUN touch /tmp/pod-ready
 # Init and run supervisor
 COPY odoo-start.sh /odoo-start.sh
 COPY runonce.sh /root/runonce.sh
+COPY runonce-odoo.sh /root/runonce-odoo.sh
 COPY supervisord.conf /etc/supervisord.conf
 CMD /usr/bin/supervisord -c /etc/supervisord.conf

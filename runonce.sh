@@ -19,9 +19,9 @@ if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   mv /etc/odoo /var/lib/odoo/etc-odoo;
   ln -s /var/lib/odoo/etc-odoo /etc/odoo;
   sed 's/^\s*; admin_passwd = admin\s*$/admin_passwd = '$INITIAL_ADMIN_PASSWORD'/' "/etc/odoo/odoo.conf" > /etc/odoo/odoo-modified.conf
-  rm /etc/odoo.conf;
+  rm /etc/odoo/odoo.conf;
   mv /etc/odoo/odoo-modified.conf /etc/odoo/odoo.conf;
-  chown odoo:odoo /etc/odoo/odoo.conf
+  chown odoo:odoo /etc/odoo/odoo.conf /var/lib/odoo/etc-odoo
 fi
 
 touch /var/log/git-credential-helper.log

@@ -52,9 +52,10 @@ env >> /etc/environment
 echo "Start odoo";
 supervisorctl start odoo
 
-sleep 10
 
 # Set initial admin password
+# NOTE! This sleep is not good... how could we do this?
+sleep 30
 if [ "$firstrun" = true ]]; then
   echo "Setting initial password";
   python3 /root/initial_admin_password.py;

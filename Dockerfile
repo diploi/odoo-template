@@ -54,6 +54,7 @@ RUN touch /tmp/pod-ready
 
 # Init and run supervisor
 COPY odoo-start.sh /odoo-start.sh
+COPY initial_admin_password.py /root/initial_admin_password.py
 COPY runonce.sh /root/runonce.sh
 COPY runonce-odoo.sh /home/odoo/runonce-odoo.sh
 RUN chown odoo:odoo /home/odoo/runonce-odoo.sh

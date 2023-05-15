@@ -16,6 +16,8 @@ chown odoo:odoo /home/odoo/.ssh/authorized_keys;
 # Initialize symlink to /etc/odoo so config will outlive pod
 echo "X1";
 ls -la /etc/ | grep odoo;
+echo "X1B";
+ls -la /var/lib/odoo/;
 
 if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   echo "X2";
@@ -30,6 +32,8 @@ if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   chown odoo:odoo /etc/odoo/odoo.conf /var/lib/odoo/etc-odoo
   echo "X4";
   cat /etc/odoo/odoo.conf | grep "passwd";
+else
+  echo "XERROR";
 fi
 echo "X3";
 

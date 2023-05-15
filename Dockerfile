@@ -52,13 +52,15 @@ COPY diploi-credential-helper /usr/local/bin
 # Fake pod ready
 RUN touch /tmp/pod-ready
 
-# Copy a version of home so we can copy it in the mounted development version
-RUN tar cvf /root/initial-odoo-home.tar /home/odoo
-
 # Init and run supervisor
 COPY odoo-start.sh /odoo-start.sh
 COPY runonce.sh /root/runonce.sh
 COPY runonce-odoo.sh /home/odoo/runonce-odoo.sh
 RUN chown odoo:odoo /home/odoo/runonce-odoo.sh
+
+# Copy a version of home so we can copy it in the mounted development version
+RUN tar cvf /root/initial-odoo-home.tar /home/odoo
+
+# Supervisord
 COPY supervisord.conf /etc/supervisord.conf
 CMD /usr/bin/supervisord -c /etc/supervisord.conf

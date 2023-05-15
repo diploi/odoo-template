@@ -5,7 +5,7 @@ echo "Runonce started";
 
 # Home seems empty, probably running development version first time, initialize it
 if [ ! "$(ls -A /home/odoo)" ]; then
-  tar xvf /root/initial-odoo-home.tar --strip-components 2
+  tar xvf /root/initial-odoo-home.tar -C /home/odoo --strip-components 2;
 fi
 
 # Insert accepted ssh key(s)

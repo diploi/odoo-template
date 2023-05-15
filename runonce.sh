@@ -5,8 +5,7 @@ echo "Runonce started";
 
 # Home seems empty, probably running development version first time, initialize it
 if [ ! "$(ls -A /home/odoo)" ]; then
-  cp -r /home/odoo-initial-home/* /home/odoo-initial-home/.* /home/odoo
-  chown -R odoo:odoo /home/odoo-initial-home
+  tar xvf /root/initial-odoo-home.tar --strip-components 2
 fi
 
 # Insert accepted ssh key(s)

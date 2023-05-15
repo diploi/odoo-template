@@ -16,8 +16,8 @@ RUN chmod 700 /home/odoo/.ssh
 RUN chown odoo:odoo /home/odoo/.ssh
 COPY update_odoo_home.sh /etc/profile.d/update_odoo_home.sh
 # TODO: Is this really needed, now that permissions are ok?
-RUN mkdir /var/lib/odoo/sessions
-RUN chown odoo /var/lib/odoo/sessions
+#RUN mkdir /var/lib/odoo/sessions
+#RUN chown odoo /var/lib/odoo/sessions
 
 # Update basic packages
 RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 ca-certificates tar

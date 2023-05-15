@@ -3,6 +3,8 @@
 # Perform tasks at controller pod startup
 echo "Runonce started";
 
+timestamp=$(date +%s%3N) && touch "/home/odoo/runonce${timestamp}.txt";
+
 # Home seems empty, probably running development version first time, initialize it
 if [ ! "$(ls -A /home/odoo)" ]; then
   tar xvf /root/initial-odoo-home.tar -C /home/odoo --strip-components 2;

@@ -19,6 +19,9 @@ COPY update_odoo_home.sh /etc/profile.d/update_odoo_home.sh
 RUN mkdir /var/lib/odoo/sessions
 RUN chown odoo /var/lib/odoo/sessions
 
+# Copy a version of home so we can copy it in the mounted development version
+RUN cp -r /home/odoo /home/odoo-initial-home
+RUN chown -R odoo:odoo /home/odoo-initial-home
 
 # Update basic packages
 RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 ca-certificates tar

@@ -3,6 +3,12 @@
 # Perform tasks at controller pod startup
 echo "Runonce started";
 
+# Home seems empty, probably running development version first time, initialize it
+if [ ! "$(ls -A /home/odoo)" ]; then
+  cp -r /home/odoo-initial-home/* /home/odoo-initial-home/.* /home/odoo
+  chown -R odoo:odoo /home/odoo-initial-home
+fi
+
 # Insert accepted ssh key(s)
 cat /etc/ssh/internal_ssh_host_rsa.pub >> /root/.ssh/authorized_keys;
 cat /etc/ssh/internal_ssh_host_rsa.pub >> /home/odoo/.ssh/authorized_keys;
@@ -16,7 +22,7 @@ if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   sed 's/^\s*; admin_passwd = admin\s*$/admin_passwd = '$INITIAL_ADMIN_PASSWORD'/' "/etc/odoo/odoo.conf" > /etc/odoo/odoo-modified.conf
   rm /etc/odoo.conf;
   mv /etc/odoo/odoo-modified.conf /etc/odoo/odoo.conf;
-  chown -R odoo:odoo /etc/odoo
+  chown odoo:odoo /etc/odoo/odoo.conf
 fi
 
 touch /var/log/git-credential-helper.log

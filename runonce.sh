@@ -15,7 +15,7 @@ chown odoo:odoo /home/odoo/.ssh/authorized_keys;
 
 # Initialize symlink to /etc/odoo so config will outlive pod
 echo "X1";
-ls -la /etc/ | grep odoo
+ls -la /etc/ | grep odoo;
 
 if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   echo "X2";
@@ -24,7 +24,7 @@ if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   ln -s /var/lib/odoo/etc-odoo /etc/odoo;
   echo "X3";
   ls -la /etc/ | grep odoo
-  sed 's/^\s*; admin_passwd = admin\s*$/admin_passwd = '$INITIAL_ADMIN_PASSWORD'/' "/etc/odoo/odoo.conf" > /etc/odoo/odoo-modified.conf
+  sed 's/^\s*; admin_passwd = admin\s*$/admin_passwd = '$INITIAL_ADMIN_PASSWORD'/' "/etc/odoo/odoo.conf" > /etc/odoo/odoo-modified.conf;
   rm /etc/odoo/odoo.conf;
   mv /etc/odoo/odoo-modified.conf /etc/odoo/odoo.conf;
   chown odoo:odoo /etc/odoo/odoo.conf /var/lib/odoo/etc-odoo

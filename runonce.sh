@@ -3,15 +3,6 @@
 # Perform tasks at controller pod startup
 echo "Runonce started";
 
-if [ -f "/var/lib/odoo/runonce-started" ]; then
-  firstrun=false
-else
-  firstrun=true
-  echo "Firstrun!"
-fi
-
-timestamp=$(date +%s%3N) && touch "/var/lib/odoo/runonce${timestamp}.txt";
-
 # Home seems empty, probably running development version first time, initialize it
 if [ ! "$(ls -A /home/odoo)" ]; then
   tar xvf /root/initial-odoo-home.tar -C /home/odoo --strip-components 2;
@@ -48,18 +39,13 @@ update-ca-certificates
 # Make all special env variables available in ssh also (ssh will wipe out env by default)
 env >> /etc/environment
 
+# Wait for database and initialize odoo and set admin password on first run 
+echo "Initializing odoo";
+python3 /root/odoo-init.py;
+
 # Now that everything is initialized, start all services
 echo "Start odoo";
 supervisorctl start odoo
-
-
-# Set initial admin password
-# NOTE! This sleep is not good... how could we do this?
-sleep 30
-if [ "$firstrun" = true ]]; then
-  echo "Setting initial password";
-  python3 /root/initial_admin_password.py;
-fi
 
 echo "Runonce done";
 

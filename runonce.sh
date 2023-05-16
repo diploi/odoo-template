@@ -3,6 +3,12 @@
 # Perform tasks at controller pod startup
 echo "Runonce started";
 
+# Update internal ca certificate
+update-ca-certificates
+
+# Make all special env variables available in ssh also (ssh will wipe out env by default)
+env >> /etc/environment
+
 # Home seems empty, probably running development version first time, initialize it
 if [ ! "$(ls -A /home/odoo)" ]; then
   tar xvf /root/initial-odoo-home.tar -C /home/odoo --strip-components 2;
@@ -29,19 +35,8 @@ fi
 touch /var/log/git-credential-helper.log
 chown odoo:odoo /var/log/git-credential-helper.log
 
-
 # Run tasks that should be done as odoo user
 su -s /home/odoo/runonce-odoo.sh -g odoo odoo
-
-# Update internal ca certificate
-update-ca-certificates
-
-# Make all special env variables available in ssh also (ssh will wipe out env by default)
-env >> /etc/environment
-
-# Wait for database and initialize odoo and set admin password on first run 
-echo "Initializing odoo";
-python3 /root/odoo-init.py;
 
 # Now that everything is initialized, start all services
 echo "Start odoo";

@@ -39,6 +39,10 @@ EOL
 
 fi
 
+# Wait for database and initialize odoo and set admin password on first run 
+echo "Initializing odoo";
+python3 /root/odoo-init.py;
+
 echo "Runonce odoo done";
 
 exit 0;

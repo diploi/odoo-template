@@ -1,4 +1,8 @@
-name: OdooBuild
+name: Odoo16ArmBuild
+
+#
+# Since Odoo doesnt' provide an Arm build we need to do one ourselves
+#
 
 on:
   push:
@@ -7,7 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: diploi/odoo-template
+  IMAGE_NAME: diploi/odoo16-arm
 
 jobs:
   build:

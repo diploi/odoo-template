@@ -1,4 +1,4 @@
-FROM arm64v8/odoo:16
+FROM ghcr.io/diploi/odoo16-arm
 
 # This dockerfile is run by diploi image builder, it will have 
 # this template repository as it's base and the actual project

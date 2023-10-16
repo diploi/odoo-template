@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./Odoo16Docker
-          file: Dockerfile
+          file: DockerfileOdoo
           platforms: linux/arm64
           pull: true
           push: ${{ github.event_name != 'pull_request' }}

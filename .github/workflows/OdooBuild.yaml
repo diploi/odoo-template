@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: odoo
+  IMAGE_NAME: diploi/odoo-template
 
 jobs:
   build:

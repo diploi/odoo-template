@@ -127,21 +127,21 @@ storage:
       - production
       - staging
       - development
-    sizeMb: 8000
+    sizeMiB: 2048
   - identifier: odoohome
     stages:
       - development
-    sizeMb: 8000
+    sizeMiB: 2048
   - identifier: odooaddons
     stages:
       - development
-    sizeMb: 8000
+    sizeMiB: 2048
   - identifier: postgres
     stages:
       - production
       - staging
       - development
-    sizeMb: 10000
+    sizeMiB: 4096
 
 status:
   url: http://odoo:3000/status

@@ -1,7 +1,13 @@
 #!/bin/sh
 
+progress() {
+  current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  local action="$1"
+  echo "🟩 $current_date $action"
+}
+
 # Perform tasks ths should run as odoo user at pod startup
-echo "Runonce odoo started";
+progress "Runonce started";
 
 cd /mnt/extra-addons;
 
@@ -9,7 +15,7 @@ cd /mnt/extra-addons;
 # Intialize persistant storage
 if [ ! "$(ls -A /mnt/extra-addons)" ]; then
 
-  echo "Initializing git repository"
+  progress "Pulling code";
 
   git init;
   git config credential.helper '!diploi-credential-helper';
@@ -40,9 +46,9 @@ EOL
 fi
 
 # Wait for database and initialize odoo and set admin password on first run 
-echo "Initializing odoo";
+progress "Initializing Odoo";
 python3 /odoo-init.py;
 
-echo "Runonce odoo done";
+progress "Runonce done";
 
 exit 0;

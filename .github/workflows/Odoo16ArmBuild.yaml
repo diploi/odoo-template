@@ -2,12 +2,13 @@ name: Odoo16ArmBuild
 
 #
 # Since Odoo doesnt' provide an Arm build we need to do one ourselves
-#
+# NOTE! This is triggered with odoo-v0.0.1 style tag so we don't always 
+#       do this
 
 on:
   push:
-    #tags:
-    #  - 'odoo*'
+    tags:
+      - 'odoo-*'
 
 env:
   REGISTRY: ghcr.io
@@ -15,7 +16,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: buildjet-8vcpu-ubuntu-2204-arm
     permissions:
       contents: read
       packages: write

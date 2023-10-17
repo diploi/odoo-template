@@ -1,4 +1,4 @@
-FROM ghcr.io/diploi/odoo16-arm:main
+FROM ghcr.io/diploi/odoo16-arm:latest
 
 
 # This dockerfile is run by diploi image builder, it will have 

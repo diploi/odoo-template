@@ -123,16 +123,22 @@ images:
 
 storage:
   - identifier: odoodata
+    uid: 101
+    gid: 101
     stages:
       - production
       - staging
       - development
     sizeMiB: 2048
   - identifier: odoohome
+    uid: 101
+    gid: 101
     stages:
       - development
     sizeMiB: 2048
   - identifier: odooaddons
+    uid: 101
+    gid: 101
     stages:
       - development
     sizeMiB: 2048

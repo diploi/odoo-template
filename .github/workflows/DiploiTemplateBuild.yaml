@@ -2,8 +2,8 @@ name: DiploiTemplateBuild
 
 on:
   push:
-    branches:
-      - main
+    #branches:
+    #  - main
     tags:
       - 'v*'
 

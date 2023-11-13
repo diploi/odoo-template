@@ -1,6 +1,6 @@
 diploiTemplateVersion: V1.0
 name: diploi-odoo
-description: Odoo ERP template
+description: Odoo 16 ERP template
 defaultName: Odoo
 
 stages:

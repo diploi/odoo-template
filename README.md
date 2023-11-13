@@ -1,15 +1,25 @@
 # Odoo template
 
-A template for running Odoo on Dipoi
+Run Odoo open source ERP on diploi
 
-Features full PostgreSQL etc. etc.
+Includes an internal PostgreSQL database.
 
-- 💻 [Next.js](https://nextjs.org)
+- 💻 [Odoo](https://www.odoo.com/)
 - 💿 [PostgreSQL](https://www.postgresql.org)
 
 ## Odoo
 
-Available at `/`.
+Odoo version 16 docker file plus diploi customizations.
+
+Login to Odoo with user `admin`, an initial password is generated for every project. In Diploi, see project options.
+
+There separate ssh logins for users `odoo` and `root`.
+
+Custom modules are linked to git repository, hosted at `/mnt/extra-addons`. This folder is persisted 
+in the development version and non-persisted for staging and development.
+
+Data folder `/var/lib/odoo` is persisted always
+
 
 ## PostgreSQL
 

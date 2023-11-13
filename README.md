@@ -1,4 +1,4 @@
-Run Odoo 16 - Open source ERP and CRPM on Diploi
+Run Odoo 16 - Open source ERP and CRM on Diploi
 
 Includes an internal PostgreSQL database.
 

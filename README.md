@@ -1,6 +1,4 @@
-# Odoo template
-
-Run Odoo open source ERP on diploi
+Run Odoo 16 - Open source ERP and CRPM on Diploi
 
 Includes an internal PostgreSQL database.
 

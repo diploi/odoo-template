@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Show usage information
+usage() {
+  echo "Usage: odooctl {start|stop|restart}"
+  exit 1
+}
+
+# Check if the script was called with an argument
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+# Check the argument and perform the corresponding action
+case "$1" in
+  "start")
+    sudo supervisorctl start odoo
+    ;;
+  "stop")
+    sudo supervisorctl stop odoo
+    ;;
+  "restart")
+    sudo supervisorctl restart odoo
+    ;;
+  *)
+    usage
+    ;;
+esac
+
+exit 0

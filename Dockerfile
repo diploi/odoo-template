@@ -1,6 +1,5 @@
 FROM ghcr.io/diploi/odoo16-arm:latest
 
-
 # This dockerfile is run by diploi image builder, it will have 
 # this template repository as it's base and the actual project
 # repository will be mounted in the repository folder.
@@ -21,7 +20,8 @@ COPY update_odoo_home.sh /etc/profile.d/update_odoo_home.sh
 #RUN chown odoo /var/lib/odoo/sessions
 
 # Update basic packages
-RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 ca-certificates tar
+RUN apt-get update 
+  && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 ca-certificates tar sudo
 
 # Install PostgreSQL client
 #RUN apt-get install -y postgresql-client
@@ -41,16 +41,12 @@ RUN mkdir -p /run/sshd /root/.ssh \
 #  echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
 #  echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
 #  locale-gen en_US.UTF-8
-  
+
 # Gitconfig secrets and credential helper
 RUN ln -s /etc/diploi-git/gitconfig /etc/gitconfig
 COPY diploi-credential-helper /usr/local/bin
 
-# Experimental add odoo user
-#RUN apt-get update && apt-get -y install sudo
-#RUN adduser odoo sudo
-
-# Fake pod ready
+# Fake pod ready: TODO: fix actual probe
 RUN touch /tmp/pod-ready
 
 # Init and run supervisor
@@ -60,6 +56,8 @@ COPY odoo-init.py /odoo-init.py
 COPY runonce.sh /root/runonce.sh
 COPY runonce-odoo.sh /home/odoo/runonce-odoo.sh
 RUN chown odoo:odoo /home/odoo/runonce-odoo.sh
+COPY odoo-sudoers /etc/sudoers.d/odoo-sudoers
+COPY odooctl /usr/local/bin/odooctl
 
 # Copy a version of home so we can copy it in the mounted development version
 RUN tar cvf /root/initial-odoo-home.tar /home/odoo

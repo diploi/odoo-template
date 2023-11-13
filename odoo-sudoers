@@ -1,0 +1,3 @@
+
+# Allow odoo to run supervisorctl
+odoo    ALL=(ALL:ALL) NOPASSWD: /usr/bin/supervisorctl

@@ -20,7 +20,7 @@ COPY update_odoo_home.sh /etc/profile.d/update_odoo_home.sh
 #RUN chown odoo /var/lib/odoo/sessions
 
 # Update basic packages
-RUN apt-get update 
+RUN apt-get update \
   && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 ca-certificates tar sudo
 
 # Install PostgreSQL client

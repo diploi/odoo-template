@@ -27,7 +27,7 @@ parameterGroups:
     - name: Initial admin password
       identifier: INITIAL_ADMIN_PASSWORD
       defaultValue: "[diploi-generate-password]"
-      type: string
+      type: secret
   - name: PostgreSQL Database
     identifier: postgres
     toggleable: true

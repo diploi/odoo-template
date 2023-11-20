@@ -7,16 +7,16 @@ metadata:
 spec:
   tls:
     - hosts:
-        - {{ .Values.hosts.odoo }}
+        - {{ .Values.hosts.app }}
       secretName: tls-secret
   rules:
-    - host: {{ .Values.hosts.odoo }}
+    - host: {{ .Values.hosts.app }}
       http:
         paths:
           - path: '/'
             pathType: Prefix
             backend:
               service:
-                name: odoo
+                name: app
                 port: 
                   number: 8069

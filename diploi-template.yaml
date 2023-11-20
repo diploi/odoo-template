@@ -1,6 +1,6 @@
 diploiTemplateVersion: V1.0
 name: diploi-odoo
-description: Odoo 16 ERP template
+description: Odoo 16 ERP & CRM template
 defaultName: Odoo
 
 stages:
@@ -12,8 +12,8 @@ stages:
     identifier: production
 
 contexts:
-  - name: odoo
-    identifier: odoo
+  - name: app
+    identifier: app
   - name: postgres
     identifier: postgres
 
@@ -60,37 +60,37 @@ environmentVariables:
   - identifier: TEST
     defaultValue: This text comes from an environment variable
     type: string
-    contexts: label=odoo
+    contexts: label=app
 
 repositories:
-  - name: odoo
-    identifier: odoo
+  - name: app
+    identifier: app
 
 hosts:
   - name: Odoo
-    identifier: odoo
+    identifier: app
     urlFormat: '[label].[default-domain]'
 
 ssh:
   - usernameFormat: '[label]'
-    contexts: label=odoo
+    contexts: label=app
     containerUser: odoo
     editorPath: /mnt/extra-addons
     stages:
       - development
   - usernameFormat: '[label]-root'
-    contexts: label=odoo
+    contexts: label=app
     containerUser: root
     editorPath: /root
     stages:
       - development
   - usernameFormat: '[label]-[index]'
-    contexts: label=odoo
+    contexts: label=app
     containerUser: odoo
     stages:
       - production
   - usernameFormat: '[label]-[index]-root'
-    contexts: label=odoo
+    contexts: label=app
     containerUser: root
     stages:
       - production
@@ -100,18 +100,18 @@ ssh:
 logs:
   - identifier: odoo-log
     name: Odoo Log
-    labelSelector: app=odoo
+    labelSelector: app=app
     command: tail -n 2000 -F /var/log/odoo.log
 
 actions:
   - identifier: odoo-restart
     name: Restart Odoo
-    labelSelector: app=odoo
+    labelSelector: app=app
     command: supervisord restart odoo
 
 images:
-  - identifier: odoo
-    repository: odoo
+  - identifier: app
+    repository: app
     dockerfile: Dockerfile
     image: ghcr.io/diploi/odoo-template
     stages:
@@ -150,4 +150,4 @@ storage:
     sizeMiB: 4096
 
 status:
-  url: http://odoo:3000/status
+  url: http://app:3000/status

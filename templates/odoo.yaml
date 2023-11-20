@@ -5,15 +5,15 @@ kind: StatefulSet
 kind: Deployment
 {{- end }}
 metadata:
-  name: odoo
+  name: app
   labels:
-    app: odoo
+    app: app
 spec:
   selector:
     matchLabels:
-      app: odoo
+      app: app
   {{- if eq .Values.stage "development"}}
-  serviceName: odoo
+  serviceName: app
   {{- else }}
   strategy:
     type: RollingUpdate
@@ -25,14 +25,14 @@ spec:
   template:
     metadata:
       labels:
-        app: odoo
+        app: app
     spec:
       terminationGracePeriodSeconds: 10
       imagePullSecrets:
         - name: diploi-pull-secret
       containers:
-        - name: odoo
-          image: {{ .Values.images.odoo }}
+        - name: app
+          image: {{ .Values.images.app }}
           imagePullPolicy: Always
           #command: ['sh', '-c', 'echo The app is running! && sleep 10000']
           ports:
@@ -47,7 +47,7 @@ spec:
             periodSeconds: 5
           env:
             {{- range .Values.env }}
-            {{- if contains "odoo" .contexts }}
+            {{- if contains "app" .contexts }}
             - name: {{ .identifier }}
               value: {{ .value | quote }}
             {{- end }}
@@ -57,11 +57,11 @@ spec:
               value: {{ .value | quote }}
             {{- end }}
             - name: REPOSITORY_URL
-              value: {{ .Values.repositories.odoo.url }}
+              value: {{ .Values.repositories.app.url }}
             - name: REPOSITORY_BRANCH
-              value: {{ .Values.repositories.odoo.branch }}
+              value: {{ .Values.repositories.app.branch }}
             - name: APP_PUBLIC_URL
-              value: {{ .Values.hosts.odoo }}
+              value: {{ .Values.hosts.app }}
             - name: STAGE
               value: {{ .Values.stage }}
             - name: HOST

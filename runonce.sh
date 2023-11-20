@@ -41,6 +41,7 @@ su -s /home/odoo/runonce-odoo.sh -g odoo odoo
 # Now that everything is initialized, start all services
 echo "Start odoo";
 supervisorctl start odoo
+supervisorctl start status
 
 echo "Runonce done";
 

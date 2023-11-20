@@ -47,11 +47,11 @@ const getSupervisorStatus = async (name, process) => {
 
 const getWWWStatus = async () => {
   try {
-    const nextjsResponse = (await shellExec('curl http://localhost')).stdout;
-    if (nextjsResponse && nextjsResponse.includes('__NEXT_DATA__')) return { status: Status.GREEN, message: '' };
-    return { status: Status.RED, message: 'Next.js is not responding' };
+    const nextjsResponse = (await shellExec('curl http://localhost:8069/web/login')).stdout;
+    if (nextjsResponse && nextjsResponse.includes('Odoo')) return { status: Status.GREEN, message: '' };
+    return { status: Status.RED, message: 'Odoo is not responding' };
   } catch {
-    return { status: Status.RED, message: 'Failed to query Next.js status' };
+    return { status: Status.RED, message: 'Failed to query Odoo status' };
   }
 };
 
@@ -112,9 +112,12 @@ const getStatus = async () => {
     diploiStatusVersion: 1,
     items: [wwwStatus],
   };
-  const hasPostgres = !!process.env.parameter_group_postgres_enabled;
-  if (hasPostgres) {
-    status.items.push(await getPostgresStatus());
+  status.items.push(await getPostgresStatus());
+
+  // Log some response at random
+  if (Math.random() * 100 < 10) {
+    console.log(new Date().toISOString(), '(only logging some responses)');
+    console.log(status);
   }
 
   return status;
@@ -130,6 +133,7 @@ server.listen(3000, '0.0.0.0');
 
 console.log('🌎  Status Server Started ' + new Date().toISOString());
 
+// NOTE! This is disabled for now in helm chart
 const podReadinessLoop = async () => {
   const status = await getStatus();
   let allOK = !status.items.find((s) => s.status !== Status.GREEN);

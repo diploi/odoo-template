@@ -59,6 +59,10 @@ RUN chown odoo:odoo /home/odoo/runonce-odoo.sh
 COPY odoo-sudoers /etc/sudoers.d/odoo-sudoers
 COPY odooctl /usr/local/bin/odooctl
 
+# Install code server
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+COPY diploi-vscode-settings.json /usr/local/etc/diploi-vscode-settings.json
+
 # Copy a version of home so we can copy it in the mounted development version
 RUN tar cvf /root/initial-odoo-home.tar /home/odoo
 

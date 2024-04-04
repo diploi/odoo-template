@@ -30,6 +30,11 @@ if [ ! -d "/var/lib/odoo/etc-odoo" ]; then
   mv /etc/odoo/odoo-modified.conf /etc/odoo/odoo.conf;
   chown odoo:odoo /etc/odoo/odoo.conf /var/lib/odoo/etc-odoo
   cat /etc/odoo/odoo.conf | grep "passwd";
+
+  # Configure VSCode
+  mkdir -p /root/.local/share/code-server/User
+  cp /usr/local/etc/diploi-vscode-settings.json /root/.local/share/code-server/User/settings.json
+
 fi
 
 touch /var/log/git-credential-helper.log
@@ -42,6 +47,7 @@ su -s /home/odoo/runonce-odoo.sh -g odoo odoo
 echo "Start odoo";
 supervisorctl start odoo
 supervisorctl start status
+supervisorctl start code-server
 
 echo "Runonce done";
 
